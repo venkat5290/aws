@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description : "This is first cloudformation template for creating a VM"
+Parameters:
+  keyname:
+    Description: "Select the key-pair"
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: "Must be a valid key"
+  Ami:
+    Type: String
+    Default: ami-03657b56516ab7912
+  Amitype:
+    Description: "Web server EC2 Instance Type"
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - t2.nano
+    ConstraintDescription: "Must be a valid Instance Type"
+  InstanceVpc:
+    Description: "Select the VPC"
+    Type: AWS::EC2::VPC::Id
+    ConstraintDescription: "Select the correct VPC"
+  InstanceSubnetID:
+    Description: "Select the proper subnet"
+    Type: AWS::EC2::Subnet::Id
+    ConstraintDescription: "Wrong Security Group"
+  Sg:
+    Description: "Select the Segurity group"
+    Type: List<AWS::EC2::SecurityGroup::Id>
+Resources:
+  Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref Ami
+      InstanceType: !Ref Amitype
+      KeyName: !Ref keyname
+      # SecurityGroupIds: !Ref Sg
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          GroupSet: !Ref Sg
+          DeviceIndex: "0"
+          DeleteOnTermination: true
+          SubnetId: !Ref InstanceSubnetID
+Outputs:
+  InstanceName: 
+    Description: :"Intsnace created through cloudformation"
+    Value: !Ref Instance

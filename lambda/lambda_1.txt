@@ -1,0 +1,30 @@
+Resources:
+
+youtube lectures : https://www.youtube.com/watch?v=CgY2uxQPflY&list=PL5KTLzN85O4KO0qEeUVvwTTcHFsdE6Dhx
+code sheet : https://github.com/srcecde/aws-lambda-cheatsheet/
+
+1st basic program:
+
+Role : AWSLAMBDABASICEXECUTIONROLE
+
+event :
+{
+    "name":"venkat",
+    "place":"Bhubaneswar",
+    "purpose":"testing"
+}
+ 
+ 
+code:
+
+def lambda_handler(event, context):
+    # TODO implement
+    print("-"*25)
+    print("lambda function execution started")
+    #print(event)
+    print("lambda function invoked by:",event["name"])
+    print("lambda function called from",event["place"])
+    print("lambda function purpose is:",event["purpose"])
+    print("lambda function completed execution")
+    print("-"*25)
+    return "Hello from lambda"

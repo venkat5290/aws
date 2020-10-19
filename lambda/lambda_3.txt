@@ -1,0 +1,29 @@
+AWS: Reading File content from S3 on Lambda Trigger:
+
+ROLES : AWSS3FULLACCESS,CloudWatchFullAccess
+
+Trigger : On create all objects of bucket="venkat-s3-trigger-test"
+
+python code:
+
+import boto3
+
+def lambda_handler(event, context):
+    s3=boto3.client('s3')
+    if event:
+        print("Event : ", event)
+        file_obj = event["Records"][0]
+        filename = str(file_obj['s3']['object']['key'])
+        print("filename:",filename)
+        bucket="venkat-s3-trigger-test"
+        obj = s3.get_object(Bucket=bucket, Key=filename)
+        print("File Obj", obj)
+        file_content = obj["Body"].read().decode('utf-8')
+        print(file_content)
+		
+event details recorded:
+
+{'Records': [
+{'eventVersion': '2.1', 'eventSource': 'aws:s3', 'awsRegion': 'us-east-2', 'eventTime': '2020-09-29T11:51:17.912Z', 'eventName': 'ObjectCreated:Put', 'userIdentity': {'principalId': 'A23RN9AH3YFIYC'}, 'requestParameters': {'sourceIPAddress': '164.100.212.61'}, 'responseElements': {'x-amz-request-id': 'CJ0YBJ4P5Y9Y0TFR', 'x-amz-id-2': 'qI20Q845/ONok7aIzEFYMKbHJz3RxO/rP0Lym3KktoK07hTd8LK7sZzys6rn6VwPE48Of099Sq3vdYvPn+vU2TMxB5GFLkOfZjJK06lofPs='}, 
+'s3': {'s3SchemaVersion': '1.0', 'configurationId': 'a3b2141a-065f-4920-b663-89e0c741ea86', 'bucket': {'name': 'nani-t1', 'ownerIdentity': {'principalId': 'A23RN9AH3YFIYC'}, 'arn': 'arn:aws:s3:::nani-t1'}, 'object': {'key': 'test_lambda.csv', 'size': 156, 'eTag': '2ddb650301f3ccdd73dbd59a5bc6c34a', 'sequencer': '005F731FB64D6C94E2'}}}
+]}

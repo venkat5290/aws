@@ -1,0 +1,15 @@
+AWS: Setting S3 Bucket trigger on Lambda 
+
+Role: AWSS3FULLACCESS,CloudWatchFullAccess
+
+s3 : Create a bucket : venkat-s3-trigger-test
+
+Trigger : On create
+
+Code:
+
+def lambda_handler(event, context):
+    print("-"*50)
+    print("s3 being triggered")
+    print("-"*50)
+    return "file created in s3 bucket"
