@@ -1,0 +1,16 @@
+https://cloud.google.com/sql/docs/mysql/backup-recovery/restore
+
+https://cloud.google.com/compute/docs/instances/adding-removing-ssh-keys
+
+
+https://medium.com/google-cloud/kubernetes-engine-kubectl-config-b6270d2b656c
+kubectl config view
+config stored in : ~/.kube/config
+which gcloud
+gcloud config config-helper
+kubectl config get-contexts
+kubectl config use-context "name"
+kubectl config configurations list
+kubectl config configurations create henry
+
+
